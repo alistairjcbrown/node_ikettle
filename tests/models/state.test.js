@@ -51,6 +51,12 @@
                     expect(env.model.update).to.be.a("function");
                 });
 
+                test("should set the source to iKettle", function() {
+                    env.model.update("100");
+                    var options = env.state_change.getCall(0).args[1];
+                    expect(options.source).to.equal("kettle");
+                });
+
                 test("should set temperature to 100C", function() {
                     env.model.update("100");
                     var changes = env.state_change.getCall(0).args[0].changed;
@@ -253,6 +259,12 @@
                     expect(env.model.setInitial).to.be.a("function");
                 });
 
+                test("should set the source to iKettle", function() {
+                    env.model.setInitial("100000");
+                    var options = env.state_change.getCall(0).args[1];
+                    expect(options.source).to.equal("kettle");
+                });
+
                 test("should return base initial state if binary 0", function() {
                     env.model.attributes.on = true;
                     env.model.setInitial("000000");
@@ -300,6 +312,12 @@
             suite("reset", function() {
                 test("should exist", function() {
                     expect(env.model.reset).to.be.a("function");
+                });
+
+                test("should set the source to iKettle", function() {
+                    env.model.reset({ on: true });
+                    var options = env.state_change.getCall(0).args[1];
+                    expect(options.source).to.equal("kettle");
                 });
 
                 test("should set model back to default values", function() {

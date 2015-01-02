@@ -36,7 +36,6 @@
 
         pong_handler = ikettle.connection.once.getCall(0).args[1];
         pong_handler("HELLOAPP\r");
-        // ikettle.connection._sb_reset();
 
         process.nextTick(function() {
             var response_call = ikettle.connection.on.getCall(0);

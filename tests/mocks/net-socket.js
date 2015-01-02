@@ -12,9 +12,6 @@
             this.once = sb.spy();
             this.write = sb.spy();
             this.destroy = sb.spy();
-            this._sb_reset = function() {
-                sb.reset();
-            };
         };
 
     setup(function() {
