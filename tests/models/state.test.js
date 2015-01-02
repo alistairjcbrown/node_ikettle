@@ -32,9 +32,13 @@
         suite("instantiated", function() {
             setup(function() {
                 env.model = new State_model();
+                env.state_change = env.sb.spy();
+                env.model.reset();
+                env.model.on("change", env.state_change);
             });
 
             teardown(function() {
+                env.model.off("change");
                 env.model.destroy();
             });
 
@@ -43,10 +47,8 @@
             });
 
             suite("update", function() {
-                setup(function() {
-                    env.state_change = env.sb.spy();
-                    env.model.reset();
-                    env.model.on("change", env.state_change);
+                test("should exist", function() {
+                    expect(env.model.update).to.be.a("function");
                 });
 
                 test("should set temperature to 100C", function() {
@@ -215,6 +217,111 @@
                         var changes = env.state_change.getCall(0).args[0].changed;
                         expect(changes.available).to.equal(true);
                     });
+                });
+            });
+
+            suite("tempChange", function() {
+                test("should exist", function() {
+                    expect(env.model.tempChange).to.be.a("function");
+                });
+
+                test("should return object with only provided temp set to true", function() {
+                    expect(env.model.tempChange("80C")).to.deep.equal({
+                        "100C": false,
+                        "95C":  false,
+                        "80C":  true,
+                        "65C":  false
+                    });
+                });
+
+                test("should return object with all temps set to false for unknown temp", function() {
+                    expect(env.model.tempChange("foo")).to.deep.equal({
+                        "100C": false,
+                        "95C":  false,
+                        "80C":  false,
+                        "65C":  false
+                    });
+                });
+            });
+
+            suite("setInitial", function() {
+                setup(function() {
+                    env.model.attributes.connected = true;
+                });
+
+                test("should exist", function() {
+                    expect(env.model.setInitial).to.be.a("function");
+                });
+
+                test("should return base initial state if binary 0", function() {
+                    env.model.attributes.on = true;
+                    env.model.setInitial("000000");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ on: false });
+                });
+
+                test("should return on if binary 32", function() {
+                    env.model.setInitial("100000");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ on: true });
+                });
+
+                test("should return warm if binary 16", function() {
+                    env.model.setInitial("010000");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ warm: true });
+                });
+
+                test("should return 65C if binary 8", function() {
+                    env.model.setInitial("001000");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ "65C": true });
+                });
+
+                test("should return 80C if binary 4", function() {
+                    env.model.setInitial("000100");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ "80C": true });
+                });
+
+                test("should return 95C if binary 2", function() {
+                    env.model.setInitial("000010");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ "95C": true });
+                });
+
+                test("should return 100C if binary 1", function() {
+                    env.model.setInitial("000001");
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ "100C": true });
+                });
+            });
+
+            suite("reset", function() {
+                test("should exist", function() {
+                    expect(env.model.reset).to.be.a("function");
+                });
+
+                test("should set model back to default values", function() {
+                    env.model.attributes.on = true;
+                    env.model.attributes["80C"] = true;
+
+                    env.model.reset();
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ on: false, "80C": false });
+                });
+
+                test("should use reset overrides provided", function() {
+                    env.model.reset({ on: true, "65C": true });
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ on: true, "65C": true });
+                });
+
+                test("should retain model connected value", function() {
+                    env.model.attributes.connected = "foo";
+
+                    env.model.reset();
+                    expect(env.model.get("connected")).to.equal("foo");
                 });
             });
         });

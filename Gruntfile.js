@@ -69,8 +69,9 @@ module.exports = function(grunt) {
     // Define tasks
     grunt.registerTask("test",    [ "keybase_dir:verify", "go" ]);
     grunt.registerTask("lint",    [ "jshint", "jscs" ]);
+    grunt.registerTask("sign",    [ "keybase_dir:sign" ]);
     grunt.registerTask("go",      [ "lint", "mochaTest" ]);
-    grunt.registerTask("build",   [ "go", "keybase_dir:sign" ]);
+    grunt.registerTask("build",   [ "go", "sign" ]);
     grunt.registerTask("default", [ "go" ]);
 
 };

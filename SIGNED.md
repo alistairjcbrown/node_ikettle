@@ -4,13 +4,13 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQEcBAABCgAGBQJUpuaUAAoJEJEOHi8Q7zzzDMkH+gJGl6oL3T+Bv1soG25rt5n/
-/vlZojCwsxL6gqKyg3GmzCEOu8zQDh1Th4zUbnD3oHLgrTOqwucrfJmcr2NJH7yz
-krTPDsEO1E1U29Evxc3kMqvAjs+H9f7jSkR/AXk/0FXhyo1eSfY8mKhBAqgoTm9U
-P7TNgM4/b+LXB/BC3NpV8UwYnW5LqipIfYCe84D2W/8emNV55+coC3xM7nEpqyLe
-KUprEJi/6UfmtrX5YtiLFs87cyLwjbjO+y9AU604qXV5Ldev7m0Mu7UDrzHLcDPK
-V+Ap31oAhLROXDo3IzEbmj6WLFfqI3X1vLXTOMiUxyRpZ+3mLtXucZmzm1EPiLU=
-=Me7G
+iQEcBAABCgAGBQJUpyoPAAoJEJEOHi8Q7zzz/+sH+waj8I89lxmEkCGMH7iwy4ba
+dcdvjOJNXuw5plN69PqsGFR4TboGuOAoRtWFr3UL3uoav0b4JF3Q0PcoLYD/lvkw
+xjKPSGhnzg3oi9jmYYHaCr3th005iUcdsCQ041btOhOloviGTgrnvOtc4Yztg2ns
+4dq7PkxroRYARDBKTVq4fuNnerDL4ACEViGaNrLvMuQ+etmuEDinWtSP07gVLp3P
+fZxZTqewPbUtIIgrxTcX+TzkzXsWsB53mjGqVFo/tM77kzOqGgCPoMv525ThCYFq
+TOE3TmJKlxmkJHHrEkNf4D1f3nXb/5NzzEKVBrnqMhGSKOWM8WD+Ei3HxQokomo=
+=gCq4
 -----END PGP SIGNATURE-----
 
 ```
@@ -26,7 +26,7 @@ size   exec  file                       contents
              ./                                                                                         
 37             .gitignore               ca54bfd89562810ea8c241ec693e6080c2808bbd33da5a12bbbed1525349fade
 125            .travis.yml              dc0aebfa2af0cda0911aeb83f023797c055fc2e705f0dadcb9bc6d8493e860ad
-1800           Gruntfile.js             a3a5d9149ffbce99f93d85d57d956354c53587148b24335e57c6a14562eefe0f
+1847           Gruntfile.js             daa49789e70c7ed6a14f158257c2a64e4aeeb3f3c54378d32101ba8193e74575
 1082           LICENSE                  a5d167a6021c287a5f5a609e57bf87fbeebdc132a8837b62f147eef2bfc29b0d
 2705           README.md                7d6376bd57e34d5334da592c30e577e3c59d5e29122817552af760604a09fd9f
                config/                                                                                  
@@ -48,7 +48,7 @@ size   exec  file                       contents
                  mocks/                                                                                 
 518                net-socket.js        3baf3d3b2b2ddf250a513ed24f59fdba3ca9c3183b339afcdec65df4d173d237
                  models/                                                                                
-9036               state.test.js        a3e239df977c376eccd719c290a4644e83a8cfe07de5ec4d0318a04d0a1db124
+13657              state.test.js        e2d3f2b5e712592b142ffd26d1690ee84353cef88955b6d1cc851226dc682caf
 1522             utils.test.js          3f0eec40c25586ef88d99305e24ef2a59aec297c02e9f3044eebaac01dd30348
 ```
 
