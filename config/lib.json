@@ -1,0 +1,11 @@
+{
+    "outgoing": {
+        "greeting": "HELLOKETTLE\n",
+        "initial":  "get sys status\n"
+    },
+    "incoming": {
+        "greeting": "HELLOAPP\r",
+        "initial":  "sys status key=(.*?)\r",
+        "change":   "sys status 0x(.*?)\r"
+    }
+}

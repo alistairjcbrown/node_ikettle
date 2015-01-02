@@ -1,0 +1,17 @@
+{
+    "baseUrl": "./src",
+    "paths": {
+        "config":                         "utils/config",
+        "pubsub":                         "utils/pubsub",
+        "check":                          "utils/check",
+        "utils":                          "utils/utils/index",
+
+        "test-environment":               "tests/test-environment",
+        "squire":                         "../node_modules/squirejs/src/Squire"
+    },
+    "map": {
+        "*": {
+            "mocks":    "tests/mocks"
+        }
+    }
+}

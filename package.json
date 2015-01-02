@@ -1,0 +1,40 @@
+{
+  "name": "ikettle",
+  "description": "A library for interacting with the iKettle",
+  "version": "0.1.0",
+  "author": "Alistair Brown <github@alistairjcbrown.com>",
+  "bugs": "https://github.com/alistairjcbrown/node_ikettle/issues",
+  "contributors": [],
+  "dependencies": {
+    "backbone": "^1.1.2",
+    "check-type": "^0.4.11",
+    "q": "^1.1.2",
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jscs": "^1.0.0",
+    "grunt-keybase-dir": "^0.1.0",
+    "grunt-mocha-test": "^0.12.2",
+    "load-grunt-tasks": "^2.0.0",
+    "mocha": "^2.0.1",
+    "sinon": "^1.11.1",
+    "sinon-chai": "^2.6.0"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "homepage": "https://github.com/alistairjcbrown/node_ikettle",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/alistairjcbrown/node_ikettle.git"
+  },
+  "scripts": {
+    "test": "grunt go"
+  }
+}

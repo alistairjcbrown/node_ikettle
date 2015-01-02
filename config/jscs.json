@@ -1,0 +1,11 @@
+{
+    "requireCurlyBraces": true,
+    "requireSpaceBeforeBlockStatements": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSpacesInConditionalExpression": true,
+    "disallowMultipleLineStrings": true,
+    "disallowQuotedKeysInObjects": true,
+    "validateQuoteMarks": { "mark": "\"", "escape": true },
+    "validateIndentation": 4,
+    "validateParameterSeparator": ", "
+}
