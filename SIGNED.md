@@ -4,13 +4,13 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQEcBAABCgAGBQJUpuTUAAoJEJEOHi8Q7zzznBsH/1188tL86nXVTNLQ06oDP9ts
-T8aDSYt6WOWMgGufFLU4zlJFfkrzD0RiiMFvk4LCdWGB3vqHC8lh3abUDi7SOwRI
-Ao257gxeGThT0eXWhdlE0/2pxuDI1TKugy6U5sg22lTZbdHrMTmT6m8vMO1jp5z+
-nNtkbXEZcWXasDhyynhJEl2QBg5cMiMJW3+PO+3AOLS2HHWRC9HgRovR8TITok8c
-eej2M1vIR2gRQFvkCsrmtonbcP0K5xj9HW1CRyVwAMWnfJcSuYIz64J1o+qD7V2U
-XtrDr3hMe7bcVW3XlFAxnyLrAJj48xmLFNGZrXtLlLDh1Cu0devrt8cdTiJYksE=
-=9+3z
+iQEcBAABCgAGBQJUpuaUAAoJEJEOHi8Q7zzzDMkH+gJGl6oL3T+Bv1soG25rt5n/
+/vlZojCwsxL6gqKyg3GmzCEOu8zQDh1Th4zUbnD3oHLgrTOqwucrfJmcr2NJH7yz
+krTPDsEO1E1U29Evxc3kMqvAjs+H9f7jSkR/AXk/0FXhyo1eSfY8mKhBAqgoTm9U
+P7TNgM4/b+LXB/BC3NpV8UwYnW5LqipIfYCe84D2W/8emNV55+coC3xM7nEpqyLe
+KUprEJi/6UfmtrX5YtiLFs87cyLwjbjO+y9AU604qXV5Ldev7m0Mu7UDrzHLcDPK
+V+Ap31oAhLROXDo3IzEbmj6WLFfqI3X1vLXTOMiUxyRpZ+3mLtXucZmzm1EPiLU=
+=Me7G
 -----END PGP SIGNATURE-----
 
 ```
@@ -24,11 +24,11 @@ XtrDr3hMe7bcVW3XlFAxnyLrAJj48xmLFNGZrXtLlLDh1Cu0devrt8cdTiJYksE=
 ```
 size   exec  file                       contents                                                        
              ./                                                                                         
-27             .gitignore               403de3e1c73edcfaa2f46ff6146f414ddcaeed97717a02af53733b31c2dec963
+37             .gitignore               ca54bfd89562810ea8c241ec693e6080c2808bbd33da5a12bbbed1525349fade
 125            .travis.yml              dc0aebfa2af0cda0911aeb83f023797c055fc2e705f0dadcb9bc6d8493e860ad
 1800           Gruntfile.js             a3a5d9149ffbce99f93d85d57d956354c53587148b24335e57c6a14562eefe0f
 1082           LICENSE                  a5d167a6021c287a5f5a609e57bf87fbeebdc132a8837b62f147eef2bfc29b0d
-2697           README.md                7432411dc0a9751d1afcab9185c97024f7e0daf89d08e1b392881d9a873ae1ee
+2705           README.md                7d6376bd57e34d5334da592c30e577e3c59d5e29122817552af760604a09fd9f
                config/                                                                                  
 386              jscs.json              375a3f95f4b5a001c957a21e9550d244a22b27f81ce44e809567eada96fca805
 1006             jshint.json            1d80547f64355a68a80a238bbc21cc7b9af592c5b820b5b96b4def47d90c9972
@@ -42,7 +42,7 @@ size   exec  file                       contents
                  models/                                                                                
 4104               state.js             1b7557d948286360d20b6982f0012df2db95812611837783fc1cd73116933edd
 289              utils.js               6e8fcf7ee8297ba47ad3a909e79bb81cb61068db5026dbed9f0b57bfd27318df
-1016           package.json             1c94311969e3e935547376f11412da376b4af54b14784f37df670fa9880c1730
+1016           package.json             541e79305a42acc44335c8f1b84022626ee06ad594ceb3794ce59dfd2685cec1
                tests/                                                                                   
 10166            connection.test.js     15d6075f7762e555611ef1bb7d0ddcbe3db74802e3889e0aedcadbd4b92a93f1
                  mocks/                                                                                 

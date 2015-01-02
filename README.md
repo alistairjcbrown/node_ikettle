@@ -21,7 +21,7 @@ Please see the scripts in the [examples](examples) directory for ways in which t
 ### Connecting to your iKettle
 
 ```js
-iKettle.connect(port, host, function(err, model) {
+iKettle.connect(port, host, function(err, state) {
   if (err) {
     return;
   }
@@ -33,7 +33,7 @@ The default port for the iKettle is `2000`.
 
 Calling `connect` will confirm that the host is an iKettle and will retrieve the current state which is used to populate the model.
 
-The callback function follows the nodejs convention, If an error has occurred, the first parameter `err` will be an `Error` object and `model` will be `undefined`. If an error has not occurred, `err` will be `null` and `model` will be a `Backbone` model.
+The callback function follows the nodejs convention, If an error has occurred, the first parameter `err` will be an `Error` object and `model` will be `undefined`. If an error has not occurred, `err` will be `null` and `state` will be a `Backbone` model.
 
 
 ### iKettle state
@@ -45,13 +45,13 @@ In depth information on using Backbone models can be found in the [Backbone docu
 #### Checking if the kettle is on
 
 ```js
-var is_kettle_on = iKettle.get("on");
+var is_kettle_on = state.get("on");
 ```
 
 #### Monitoring kettle state changes
 
 ```js
-iKettle.on("change", function(details) {
+state.on("change", function(details) {
   var what_changed = details.changes;
 });
 ```
@@ -67,8 +67,8 @@ This will close the connection to the iKettle and destroy the state model.
 
 ### Upcoming
 
-1. Sync changes to model back to the iKettle
-2. Have periodic sync with iKettle to confirm model holds correct state
+1. Sync changes to state model back to the iKettle
+2. Have periodic sync with iKettle to confirm state model holds correct state
 
 ---
 
