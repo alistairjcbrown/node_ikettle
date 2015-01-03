@@ -12,7 +12,9 @@
         Backbone = require("backbone"),
         net = require("net"),
         net_socket_mock = require("./mocks/net-socket"),
-        ikettle, exposeConnectionFunctionality, exposeResponseFunctionality;
+        ikettle,
+        exposeConnectionFunctionality, exposeResponseFunctionality,
+        exposeLocalStateFunctionality;
 
     // Mock the net Socket object
     net.Socket = net_socket_mock;
@@ -45,6 +47,20 @@
         });
     };
 
+    exposeLocalStateFunctionality = function(callback) {
+        ikettle.state.attributes.connected = false;
+        ikettle.state.reset();
+        ikettle.state.on.reset();
+        env.response_handler("sys status key=\u0000\r");
+
+        process.nextTick(function() {
+            var local_change_call = ikettle.state.on.getCall(0);
+            env.local_change_handler = local_change_call.args[1];
+
+            callback();
+        });
+    };
+
     suite("iKettle connection", function() {
         setup(function() {
             env = {
@@ -52,6 +68,7 @@
                 host: "127.0.0.1",
                 sb: sinon.sandbox.create()
             };
+            env.sb.spy(ikettle.state, "on");
         });
 
         teardown(function() {
@@ -67,7 +84,7 @@
                 expect(ikettle.connect).to.be.a("function");
             });
 
-            test("should default port to 2000 if only host provided", function(done) {
+            test("should default port to 2000 when only host provided", function(done) {
                 ikettle.connect(env.host);
 
                 process.nextTick(function() {
@@ -78,7 +95,7 @@
                 });
             });
 
-            test("should default port to 2000 if host and callback provided", function(done) {
+            test("should default port to 2000 when host and callback provided", function(done) {
                 ikettle.connect(env.host, function() {});
 
                 process.nextTick(function() {
@@ -89,7 +106,7 @@
                 });
             });
 
-            test("should throw an error if port is not provided", function(done) {
+            test("should throw an error when port is not provided", function(done) {
                 ikettle.connect(null, null, function(err) {
                     expect(err).to.be.instanceOf(Error);
                     expect(err.message).to.equal("Invalid port provided");
@@ -97,7 +114,7 @@
                 });
             });
 
-            test("should throw an error if host is not provided", function(done) {
+            test("should throw an error when host is not provided", function(done) {
                 ikettle.connect(env.port, null, function(err) {
                     expect(err).to.be.instanceOf(Error);
                     expect(err.message).to.equal("Invalid host provided");
@@ -161,7 +178,7 @@
                 });
             });
 
-            suite("state event handler", function() {
+            suite("remote state change handler", function() {
                 setup(function(done) {
                     exposeConnectionFunctionality(function() {
                         exposeResponseFunctionality(done);
@@ -218,7 +235,7 @@
                 });
             });
 
-            suite("full state request", function() {
+            suite("remote full state request", function() {
                 setup(function(done) {
                     exposeConnectionFunctionality(function() {
                         exposeResponseFunctionality(function() {
@@ -246,6 +263,31 @@
                     expect(env.state_change).to.be.calledOnce;
                     expect(env.state_change.getCall(0).args[0].changed.connected).to.be.true;
                 });
+            });
+
+            suite("local state change handler", function() {
+                setup(function(done) {
+                    exposeConnectionFunctionality(function() {
+                        exposeResponseFunctionality(function() {
+                            exposeLocalStateFunctionality(function() {
+                                ikettle.connection.write.reset();
+                                done();
+                            });
+                        });
+                    });
+                });
+
+                teardown(function() {
+                    ikettle.state.reset();
+                });
+
+                test("should ignore changes with kettle as source", function() {
+                    env.local_change_handler({}, { source: "kettle" });
+                    expect(ikettle.connection.write).to.not.be.called;
+                });
+
+                // ###############
+                // TODO: Test syncing local changes to iKettle
             });
         });
 

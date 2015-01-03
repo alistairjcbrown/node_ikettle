@@ -32,13 +32,16 @@
         suite("instantiated", function() {
             setup(function() {
                 env.model = new State_model();
-                env.state_change = env.sb.spy();
                 env.model.reset();
+                env.state_change = env.sb.spy();
                 env.model.on("change", env.state_change);
+                env.invalid_state_change = env.sb.spy();
+                env.model.on("invalid", env.invalid_state_change);
             });
 
             teardown(function() {
                 env.model.off("change");
+                env.model.off("invalid");
                 env.model.destroy();
             });
 
@@ -46,7 +49,36 @@
                 expect(env.model).to.be.an.instanceOf(Backbone.Model);
             });
 
+            suite("change state model", function() {
+                test("should not allow changes when not connected", function() {
+                    env.model.set("on", true);
+                    expect(env.state_change).to.not.be.called;
+                    var err = env.invalid_state_change.getCall(0).args[1];
+                    expect(err).to.be.instanceOf(Error);
+                    expect(err.message).to.equal("Not connected");
+                });
+
+                test("should allow changes when connected", function() {
+                    env.model.attributes.connected = true;
+                    env.model.set("on", true);
+                    expect(env.invalid_state_change).to.not.be.called;
+                    var changes = env.state_change.getCall(0).args[0].changed;
+                    expect(changes).to.deep.equal({ on: true });
+                });
+
+                test("should not tag changes with source", function() {
+                    env.model.attributes.connected = true;
+                    env.model.set("on", true);
+                    var options = env.state_change.getCall(0).args[1];
+                    expect(options.source).to.not.exist;
+                });
+            });
+
             suite("update", function() {
+                setup(function() {
+                    env.model.attributes.connected = true;
+                });
+
                 test("should exist", function() {
                     expect(env.model.update).to.be.a("function");
                 });
@@ -265,44 +297,44 @@
                     expect(options.source).to.equal("kettle");
                 });
 
-                test("should return base initial state if binary 0", function() {
+                test("should return base initial state when binary 0", function() {
                     env.model.attributes.on = true;
                     env.model.setInitial("000000");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ on: false });
                 });
 
-                test("should return on if binary 32", function() {
+                test("should return on when binary 32", function() {
                     env.model.setInitial("100000");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ on: true });
                 });
 
-                test("should return warm if binary 16", function() {
+                test("should return warm when binary 16", function() {
                     env.model.setInitial("010000");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ warm: true });
                 });
 
-                test("should return 65C if binary 8", function() {
+                test("should return 65C when binary 8", function() {
                     env.model.setInitial("001000");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ "65C": true });
                 });
 
-                test("should return 80C if binary 4", function() {
+                test("should return 80C when binary 4", function() {
                     env.model.setInitial("000100");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ "80C": true });
                 });
 
-                test("should return 95C if binary 2", function() {
+                test("should return 95C when binary 2", function() {
                     env.model.setInitial("000010");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ "95C": true });
                 });
 
-                test("should return 100C if binary 1", function() {
+                test("should return 100C when binary 1", function() {
                     env.model.setInitial("000001");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ "100C": true });
