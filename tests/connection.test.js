@@ -67,10 +67,32 @@
                 expect(ikettle.connect).to.be.a("function");
             });
 
+            test("should default port to 2000 if only host provided", function(done) {
+                ikettle.connect(env.host);
+
+                process.nextTick(function() {
+                    var connection_call = ikettle.connection.connect.getCall(0);
+                    expect(connection_call.args[0]).to.equal(2000);
+                    expect(connection_call.args[1]).to.equal(env.host);
+                    done();
+                });
+            });
+
+            test("should default port to 2000 if host and callback provided", function(done) {
+                ikettle.connect(env.host, function() {});
+
+                process.nextTick(function() {
+                    var connection_call = ikettle.connection.connect.getCall(0);
+                    expect(connection_call.args[0]).to.equal(2000);
+                    expect(connection_call.args[1]).to.equal(env.host);
+                    done();
+                });
+            });
+
             test("should throw an error if port is not provided", function(done) {
                 ikettle.connect(null, null, function(err) {
                     expect(err).to.be.instanceOf(Error);
-                    expect(err.message).to.equal("No port provided");
+                    expect(err.message).to.equal("Invalid port provided");
                     done();
                 });
             });
@@ -78,7 +100,7 @@
             test("should throw an error if host is not provided", function(done) {
                 ikettle.connect(env.port, null, function(err) {
                     expect(err).to.be.instanceOf(Error);
-                    expect(err.message).to.equal("No host provided");
+                    expect(err.message).to.equal("Invalid host provided");
                     done();
                 });
             });

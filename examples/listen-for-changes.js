@@ -9,10 +9,9 @@
     "use strict";
 
     var iKettle = require("../index.js"),
-        host = "192.168.0.58",
-        port = 2000;
+        host = "192.168.0.58";
 
-    iKettle.connect(port, host, function(err, state) {
+    iKettle.connect(host, function(err, state) {
         if (err) {
             console.log("An error occurred:", err);
             iKettle.disconnect();

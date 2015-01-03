@@ -4,13 +4,13 @@
 Version: GnuPG/MacGPG2 v2.0.22 (Darwin)
 Comment: GPGTools - https://gpgtools.org
 
-iQEcBAABCgAGBQJUpyoPAAoJEJEOHi8Q7zzz/+sH+waj8I89lxmEkCGMH7iwy4ba
-dcdvjOJNXuw5plN69PqsGFR4TboGuOAoRtWFr3UL3uoav0b4JF3Q0PcoLYD/lvkw
-xjKPSGhnzg3oi9jmYYHaCr3th005iUcdsCQ041btOhOloviGTgrnvOtc4Yztg2ns
-4dq7PkxroRYARDBKTVq4fuNnerDL4ACEViGaNrLvMuQ+etmuEDinWtSP07gVLp3P
-fZxZTqewPbUtIIgrxTcX+TzkzXsWsB53mjGqVFo/tM77kzOqGgCPoMv525ThCYFq
-TOE3TmJKlxmkJHHrEkNf4D1f3nXb/5NzzEKVBrnqMhGSKOWM8WD+Ei3HxQokomo=
-=gCq4
+iQEcBAABCgAGBQJUpzvUAAoJEJEOHi8Q7zzz9IQH/Rjhzvl5Va0FeWFWlqfEfj2x
+3S9eRLqU9pkO4Sv2p5Hw2RrRRc8b4jfMJPW2J7wutxPM4NerFlN9xdpx+cbAoGzY
+w+t5hE/YoVfcQE1sglGvR2SPkJwkDpjpxFpSh5bFkk5OZth9puEkw9kqfGRYQTf2
+tk3SZDDnjK4ENouWRQ+qoj/rlEMq6R+6hqAUhs0Qo1vrHpdF0/UUp61lD1wo2wCG
+xBHeyj5lt1kCSIWruCWEf25u5MEuLi9sPmMF4su8wNAPXzvnAiei1HLNgLKtQXFv
+NP8QaqPVvwpHtAzKAUudlJDNsQB4/bYyY6gWoWhai/rgLTZmAXxcD1xUTpuO3GA=
+=JwGs
 -----END PGP SIGNATURE-----
 
 ```
@@ -28,27 +28,27 @@ size   exec  file                       contents
 125            .travis.yml              dc0aebfa2af0cda0911aeb83f023797c055fc2e705f0dadcb9bc6d8493e860ad
 1847           Gruntfile.js             daa49789e70c7ed6a14f158257c2a64e4aeeb3f3c54378d32101ba8193e74575
 1082           LICENSE                  a5d167a6021c287a5f5a609e57bf87fbeebdc132a8837b62f147eef2bfc29b0d
-2705           README.md                7d6376bd57e34d5334da592c30e577e3c59d5e29122817552af760604a09fd9f
+2764           README.md                6fb370535319add46826be4ff5e4c2d1987b3cf84f4de693c1f14e26086f31f2
                config/                                                                                  
 386              jscs.json              375a3f95f4b5a001c957a21e9550d244a22b27f81ce44e809567eada96fca805
 1006             jshint.json            1d80547f64355a68a80a238bbc21cc7b9af592c5b820b5b96b4def47d90c9972
 252              lib.json               4d18fc7fe1ac2ce17685cf0ade54b4b385a1bd56de021d83c982ad14a9aefebc
 517              requirejs.json         3de31985dc3092bf974ef93985dbad6c9da6dc2646a785def55223f149cb2df3
                examples/                                                                                
-1072             listen-for-changes.js  8d68edb3c7920085d9110c1ea58eea369f94964c68a108d62ca157d4afe73b50
+1045             listen-for-changes.js  3856ecbec919b95263dcb65036789448d71a02c11ac87750b51acc8a11e06829
 46             index.js                 bb7f630e7efdcbaf24e5ada6b925c58eaaa839007a56a2c3e896d43b75e708bb
                lib/                                                                                     
-3998             connection.js          514f32188a74f400212d5015c55b0a0ea558f518064edb66d9b910b78c3b205a
+4559             connection.js          3462e4c0c0e31d340239ccb8c3adb8636f1dcaefdc2b2deaeb1eaaa2976637c5
                  models/                                                                                
-4104               state.js             1b7557d948286360d20b6982f0012df2db95812611837783fc1cd73116933edd
+4130               state.js             57af748d7859453ecc351bde162835a0dd96a59d7234f33a5e6332122fd0434c
 289              utils.js               6e8fcf7ee8297ba47ad3a909e79bb81cb61068db5026dbed9f0b57bfd27318df
 1016           package.json             541e79305a42acc44335c8f1b84022626ee06ad594ceb3794ce59dfd2685cec1
                tests/                                                                                   
-10166            connection.test.js     15d6075f7762e555611ef1bb7d0ddcbe3db74802e3889e0aedcadbd4b92a93f1
+11082            connection.test.js     cc71dc827c65ff82d790daaae0f09153319438509ab24f628c6e810daef60115
                  mocks/                                                                                 
-518                net-socket.js        3baf3d3b2b2ddf250a513ed24f59fdba3ca9c3183b339afcdec65df4d173d237
+433                net-socket.js        a155f010e9b4707352325fcffcbf6702be643bc1abf90bf9729f7b53b40eecad
                  models/                                                                                
-13657              state.test.js        e2d3f2b5e712592b142ffd26d1690ee84353cef88955b6d1cc851226dc682caf
+14480              state.test.js        24bf84747153216f70b67352c2e3ebc34e41fbf6e6ae88758ad4f62f7becbcb2
 1522             utils.test.js          3f0eec40c25586ef88d99305e24ef2a59aec297c02e9f3044eebaac01dd30348
 ```
 

@@ -29,7 +29,7 @@ iKettle.connect(port, host, function(err, state) {
 });
 ```
 
-The default port for the iKettle is `2000`.
+The default port for the iKettle is `2000` and does not need to be provided if using the default port.
 
 Calling `connect` will confirm that the host is an iKettle and will retrieve the current state which is used to populate the model.
 
