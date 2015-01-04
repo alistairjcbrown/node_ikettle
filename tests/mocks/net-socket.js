@@ -11,7 +11,7 @@
             this.on = sb.spy();
             this.once = sb.spy();
             this.write = sb.spy();
-            this.destroy = sb.spy();
+            this.end = sb.spy();
         };
 
     setup(function() {

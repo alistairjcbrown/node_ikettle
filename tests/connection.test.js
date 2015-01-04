@@ -40,16 +40,17 @@
         pong_handler("HELLOAPP\r");
 
         process.nextTick(function() {
-            var response_call = ikettle.connection.on.getCall(0);
+            var response_call = ikettle.connection.on.getCall(0),
+                close_call = ikettle.connection.on.getCall(1);
             env.response_handler = response_call.args[1];
+            env.close_handler = close_call.args[1];
 
             callback();
         });
     };
 
     exposeLocalStateFunctionality = function(callback) {
-        ikettle.state.attributes.connected = false;
-        ikettle.state.reset();
+        ikettle.state.reset({ connected: false });
         ikettle.state.on.reset();
         env.response_handler("sys status key=\u0000\r");
 
@@ -186,15 +187,14 @@
                 });
 
                 test("should bind to all response data", function() {
-                    expect(ikettle.connection.on).to.be.calledOnce;
+                    expect(ikettle.connection.on).to.be.called;
                     expect(ikettle.connection.on.getCall(0).args[0]).to.equal("data");
                 });
 
                 suite("on response", function() {
                     setup(function() {
                         env.state_change = env.sb.stub();
-                        ikettle.state.attributes.connected = true;
-                        ikettle.state.reset();
+                        ikettle.state.reset({ connected: true, available: true });
                         ikettle.state.on("change", env.state_change);
                     });
 
@@ -235,13 +235,29 @@
                 });
             });
 
+            suite("connection closed", function() {
+                setup(function(done) {
+                    exposeConnectionFunctionality(function() {
+                        exposeResponseFunctionality(done);
+                    });
+                });
+
+                test("should bind to close event", function() {
+                    expect(ikettle.connection.on).to.be.called;
+                    expect(ikettle.connection.on.getCall(1).args[0]).to.equal("close");
+                });
+
+                test("should destroy the state model", function() {
+                    env.close_handler();
+                });
+            });
+
             suite("remote full state request", function() {
                 setup(function(done) {
                     exposeConnectionFunctionality(function() {
                         exposeResponseFunctionality(function() {
                             env.state_change = env.sb.stub();
-                            ikettle.state.attributes.connected = false;
-                            ikettle.state.reset();
+                            ikettle.state.reset({ connected: false });
                             ikettle.state.on("change", env.state_change);
                             done();
                         });
@@ -293,7 +309,7 @@
 
         suite("disconnect", function() {
             setup(function() {
-                ikettle.connection.destroy.reset();
+                ikettle.connection.end.reset();
                 env.sb.spy(ikettle.state, "destroy");
             });
 
@@ -301,9 +317,9 @@
                 expect(ikettle.disconnect).to.be.a("function");
             });
 
-            test("should destroy the connection", function() {
+            test("should end the connection", function() {
                 ikettle.disconnect();
-                expect(ikettle.connection.destroy).to.be.calledOnce;
+                expect(ikettle.connection.end).to.be.calledOnce;
             });
 
             test("should destroy the model", function() {

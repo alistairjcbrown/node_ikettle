@@ -77,6 +77,7 @@
             suite("update", function() {
                 setup(function() {
                     env.model.attributes.connected = true;
+                    env.model.attributes.available = true;
                 });
 
                 test("should exist", function() {
@@ -170,6 +171,7 @@
                 });
 
                 test("should set 'available' flag", function() {
+                    env.model.attributes.available = true;
                     env.model.update("1");
                     var changes = env.state_change.getCall(0).args[0].changed;
                     expect(changes).to.deep.equal({ available: false });
@@ -285,6 +287,7 @@
             suite("setInitial", function() {
                 setup(function() {
                     env.model.attributes.connected = true;
+                    env.model.attributes.available = true;
                 });
 
                 test("should exist", function() {
@@ -367,11 +370,38 @@
                     expect(changes).to.deep.equal({ on: true, "65C": true });
                 });
 
+                test("should ignore invalid overrides", function() {
+                    env.model.reset({ foo: "bar" });
+                    expect(env.state_change).to.not.be.called;
+                    expect(env.model.get("foo")).to.not.exist;
+                });
+
                 test("should retain model connected value", function() {
                     env.model.attributes.connected = "foo";
 
                     env.model.reset();
                     expect(env.model.get("connected")).to.equal("foo");
+                });
+            });
+
+            suite("destroy", function() {
+                setup(function() {
+                    env.model.set({
+                        connected: true,
+                        available: true,
+                        on: true
+                    });
+                });
+
+                test("should exist", function() {
+                    expect(env.model.destroy).to.be.a("function");
+                });
+
+                test("should set model back to defaults", function() {
+                    env.model.destroy();
+                    expect(env.model.get("connected")).to.be.false;
+                    expect(env.model.get("available")).to.be.false;
+                    expect(env.model.get("on")).to.be.false;
                 });
             });
         });

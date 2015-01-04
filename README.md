@@ -69,6 +69,7 @@ This will close the connection to the iKettle and destroy the state model.
 
 1. Sync changes to state model back to the iKettle
 2. Have periodic sync with iKettle to confirm state model holds correct state
+3. Auto detect iKettle on local network
 
 ---
 

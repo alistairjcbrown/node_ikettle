@@ -1,7 +1,8 @@
 {
     "outgoing": {
         "greeting": "HELLOKETTLE\n",
-        "initial":  "get sys status\n"
+        "initial":  "get sys status\n",
+        "change":   "set sys output 0x{id}\n"
     },
     "incoming": {
         "greeting": "HELLOAPP\r",
