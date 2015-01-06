@@ -68,6 +68,8 @@ This will close the connection to the iKettle and destroy the state model.
 ### Upcoming
 
 1. Sync changes to state model back to the iKettle
+   - Partially complete. Further work required to support the order of changes,
+     eg. setting temp then turning on
 2. Have periodic sync with iKettle to confirm state model holds correct state
 3. Auto detect iKettle on local network
 

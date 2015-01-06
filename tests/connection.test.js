@@ -199,8 +199,7 @@
                     });
 
                     teardown(function() {
-                        ikettle.state.off("change");
-                        ikettle.state.reset();
+                        ikettle.state.destroy();
                     });
 
                     test("should do nothing on invalid response", function() {
@@ -265,8 +264,7 @@
                 });
 
                 teardown(function() {
-                    ikettle.state.off("change");
-                    ikettle.state.reset();
+                    ikettle.state.destroy();
                 });
 
                 test("should request current state", function() {
@@ -294,7 +292,7 @@
                 });
 
                 teardown(function() {
-                    ikettle.state.reset();
+                    ikettle.state.destroy();
                 });
 
                 test("should ignore changes with kettle as source", function() {
@@ -302,8 +300,84 @@
                     expect(ikettle.connection.write).to.not.be.called;
                 });
 
-                // ###############
-                // TODO: Test syncing local changes to iKettle
+                test("should trigger kettle when 'on' changes to true", function() {
+                    ikettle.state.set("on", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x4\n");
+                });
+
+                test("should trigger kettle when 'on' changes to false", function() {
+                    ikettle.state.attributes.on = true;
+                    ikettle.state.set("on", false);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x0\n");
+                });
+
+                test("should trigger kettle when '100C' changes to true", function() {
+                    ikettle.state.set("100C", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x80\n");
+                });
+
+                test("should trigger kettle when '95C' changes to true", function() {
+                    ikettle.state.set("95C", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x2\n");
+                });
+
+                test("should trigger kettle when '80C' changes to true", function() {
+                    ikettle.state.set("80C", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x4000\n");
+                });
+
+                test("should trigger kettle when '65C' changes to true", function() {
+                    ikettle.state.set("65C", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x200\n");
+                });
+
+                test("should trigger kettle when 'warm' changes to true", function() {
+                    ikettle.state.set("warm", true);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x8\n");
+                });
+
+                test("should trigger kettle when 'warm' changes to false", function() {
+                    ikettle.state.attributes.warm = true;
+                    ikettle.state.set("warm", false);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x8\n");
+                });
+
+                test("should trigger kettle when 'warm_time' changes to 5", function() {
+                    ikettle.state.set("warm_time", 5);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x8005\n");
+                });
+
+                test("should trigger kettle when 'warm_time' changes to 10", function() {
+                    ikettle.state.set("warm_time", 10);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x8010\n");
+                });
+
+                test("should trigger kettle when 'warm_time' changes to 20", function() {
+                    ikettle.state.set("warm_time", 20);
+
+                    expect(ikettle.connection.write).to.be.calledOnce;
+                    expect(ikettle.connection.write.getCall(0).args[0]).to.equal("set sys output 0x8020\n");
+                });
             });
         });
 

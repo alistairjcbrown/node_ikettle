@@ -117,14 +117,15 @@
                 test("should set warm", function() {
                     env.model.update("11");
                     var changes = env.state_change.getCall(0).args[0].changed;
-                    expect(changes).to.deep.equal({ warm: true });
+                    expect(changes).to.deep.equal({ warm: true, warm_time: 20 });
                 });
 
                 test("should unset warm", function() {
                     env.model.attributes.warm = true;
+                    env.model.attributes.warm_time = 5;
                     env.model.update("10");
                     var changes = env.state_change.getCall(0).args[0].changed;
-                    expect(changes).to.deep.equal({ warm: false });
+                    expect(changes).to.deep.equal({ warm: false, warm_time: null });
                 });
 
                 test("should set on", function() {
@@ -402,6 +403,12 @@
                     expect(env.model.get("connected")).to.be.false;
                     expect(env.model.get("available")).to.be.false;
                     expect(env.model.get("on")).to.be.false;
+                });
+
+                test("should unbind all 'change' event handlers", function() {
+                    env.model.on("change", function() {});
+                    env.model.destroy();
+                    expect(env.model._events.change).to.not.exist;
                 });
             });
         });
